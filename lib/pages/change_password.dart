@@ -72,6 +72,8 @@ class passwordPageState extends State<passwordPage> {
                           await Future.delayed(Duration(milliseconds: 900));
                           await Navigator.pushNamed(
                               context, MyRoute.profileRoute);
+                          MySignUpPageState.password_value =
+                              confirm_Password.value.text;
                         }
                       },
                       child: Text(
