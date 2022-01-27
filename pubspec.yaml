@@ -39,6 +39,8 @@ dependencies:
   flutter_signin_button: ^2.0.0
   otp_screen: ^0.0.3
   email_validator: ^2.0.1
+  animated_bottom_navigation_bar: ^0.3.2
+  table_calendar: ^3.0.3
  
 
 dev_dependencies:

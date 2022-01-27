@@ -128,8 +128,8 @@ class MyLoginPageState extends State<MyLoginPage> {
                                 if (mykey.currentState?.validate() == true) {
                                   await Future.delayed(
                                       Duration(milliseconds: 900));
-                                  /*await Navigator.pushNamed(
-                                      context, MyRoute.startRoute);*/
+                                  await Navigator.pushNamed(
+                                      context, MyRoute.mainRoute);
                                 }
                               },
                               child: Text(
