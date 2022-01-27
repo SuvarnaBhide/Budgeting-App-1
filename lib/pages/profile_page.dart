@@ -12,7 +12,7 @@ class MyProfilePage extends StatefulWidget {
 }
 
 class MyProfilePageState extends State<MyProfilePage> {
-  static var dropDownValue = "Male";
+  static var dropDownValue = "None";
   TextEditingController email = TextEditingController()
     ..text = MySignUpPageState.email;
   TextEditingController phone_number = TextEditingController()
@@ -92,7 +92,7 @@ class MyProfilePageState extends State<MyProfilePage> {
                           dropDownValue = newValue!;
                         });
                       },
-                      items: <String>["Male", "Female", "Other"]
+                      items: <String>["None", "Male", "Female", "Other"]
                           .map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
