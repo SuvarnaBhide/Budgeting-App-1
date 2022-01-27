@@ -14,7 +14,9 @@ class MySignUpPage extends StatefulWidget {
 class MySignUpPageState extends State<MySignUpPage> {
   var mykey = GlobalKey<FormState>();
   static var username = "";
+  static var name = "";
   static var email = "";
+  static var phoneNumber = "";
   var password = TextEditingController();
   var confirmPassword = TextEditingController();
   static var password_value = "";
@@ -26,7 +28,7 @@ class MySignUpPageState extends State<MySignUpPage> {
       backgroundColor: Vx.hexToColor("#151B28"),
       body: Center(
         child: Container(
-          height: 600,
+          height: 650,
           width: 330,
           decoration: BoxDecoration(
             color: Vx.hexToColor("#262E3D"),
@@ -36,12 +38,9 @@ class MySignUpPageState extends State<MySignUpPage> {
             child: Form(
               key: mykey,
               child: Padding(
-                padding: const EdgeInsets.all(24.0),
+                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 24),
                 child: Column(
                   children: <Widget>[
-                    SizedBox(
-                      height: 30,
-                    ),
                     Image.asset(
                       "assets/images/logo.png",
                       height: 61,
@@ -49,6 +48,39 @@ class MySignUpPageState extends State<MySignUpPage> {
                     ),
                     SizedBox(
                       height: 20,
+                    ),
+                    Container(
+                      height: 60,
+                      child: Container(
+                        height: 40,
+                        child: TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Pls enter your name";
+                            } else {
+                              name = value;
+                            }
+                          },
+                          style: TextStyle(color: Colors.black),
+                          cursorColor: Colors.grey,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.only(top: 10, left: 10),
+                            fillColor: Colors.white,
+                            filled: true,
+                            hintText: "Full Name",
+                            hintStyle: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 14,
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(7),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
                     ),
                     Container(
                       height: 60,
@@ -125,6 +157,8 @@ class MySignUpPageState extends State<MySignUpPage> {
                             return "Pls enter your phone number";
                           } else if (value.length != 10) {
                             return "Pls enter 10-digit number";
+                          } else {
+                            phoneNumber = value;
                           }
                         },
                         style: TextStyle(color: Colors.black),
