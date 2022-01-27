@@ -3,11 +3,8 @@
 import 'package:budget_x/pages/login_page.dart';
 import 'package:budget_x/pages/otp_page.dart';
 import 'package:budget_x/pages/phone_login_page.dart';
-<<<<<<< HEAD
 import 'package:budget_x/pages/profile_page.dart';
-=======
 import 'package:budget_x/pages/root_app.dart';
->>>>>>> 9ece93fe109d6a8f38cb64187ffd3ffbb2ce7a3f
 import 'package:budget_x/pages/signUp_page.dart';
 import 'package:budget_x/pages/splash_Screen.dart';
 import 'package:budget_x/utils/routes.dart';
@@ -24,7 +21,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.dark,
       darkTheme: ThemeData(brightness: Brightness.dark),
-      initialRoute: MyRoute.profileRoute,
+      initialRoute: MyRoute.startRoute,
       routes: {
         MyRoute.startRoute: (context) => MySplashScreen(),
         MyRoute.homeRoute: (context) => MySplashScreen(),
@@ -33,12 +30,8 @@ class MyApp extends StatelessWidget {
         MyRoute.phoneLoginRoute: (context) => phoneLogin(),
         MyRoute.OTPRoute: (context) => MyOTPPage(),
         MyRoute.signUpRoute: (context) => MySignUpPage(),
-<<<<<<< HEAD
         MyRoute.profileRoute: (context) => MyProfilePage(),
-=======
-
-        MyRoute.mainRoute: (context) => RootApp(pageIndex: null,),
->>>>>>> 9ece93fe109d6a8f38cb64187ffd3ffbb2ce7a3f
+        MyRoute.mainRoute: (context) => RootApp(pageIndex: null),
       },
     );
   }

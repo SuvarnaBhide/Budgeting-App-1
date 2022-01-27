@@ -129,11 +129,7 @@ class MyLoginPageState extends State<MyLoginPage> {
                                   await Future.delayed(
                                       Duration(milliseconds: 900));
                                   await Navigator.pushNamed(
-<<<<<<< HEAD
-                                      context, MyRoute.profileRoute);
-=======
                                       context, MyRoute.mainRoute);
->>>>>>> 9ece93fe109d6a8f38cb64187ffd3ffbb2ce7a3f
                                 }
                               },
                               child: Text(
