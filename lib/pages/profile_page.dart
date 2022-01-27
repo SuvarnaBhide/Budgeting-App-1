@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, non_constant_identifier_names, prefer_typing_uninitialized_variables, sized_box_for_whitespace
+// ignore_for_file: prefer_const_constructors, non_constant_identifier_names, prefer_typing_uninitialized_variables, sized_box_for_whitespace, use_key_in_widget_constructors
 
 import 'package:budget_x/pages/signUp_page.dart';
 import 'package:budget_x/utils/routes.dart';
@@ -167,7 +167,11 @@ class MyProfilePageState extends State<MyProfilePage> {
                   Center(
                     child: InkWell(
                       child: MaterialButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          await Future.delayed(Duration(milliseconds: 900));
+                          await Navigator.pushNamed(
+                              context, MyRoute.loginRoute);
+                        },
                         child: Text(
                           "Log Out",
                           style: GoogleFonts.inter(

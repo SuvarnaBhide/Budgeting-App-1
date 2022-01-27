@@ -26,7 +26,7 @@ class _RootAppState extends State<RootApp> {
     const DashboardPage(),
     /*const StatsPage()*/ const Center(child: Text('STATS')),
     const Center(child: Text('BUDGET')),
-    MyProfilePage(), //idhar profile page daal de
+    MyProfilePage(),
     const CreateExpense(),
   ];
 

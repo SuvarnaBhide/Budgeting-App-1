@@ -60,6 +60,9 @@ class phoneLoginState extends State<phoneLogin> {
                               if (value.isNotEmpty && value.length == 10) {
                                 number = value;
                               }
+                              if (MySignUpPageState.phoneNumber != number) {
+                                return "Pls enter valid number";
+                              }
                             },
                             keyboardType: TextInputType.number,
                             style: TextStyle(color: Colors.black),
