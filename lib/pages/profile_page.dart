@@ -108,7 +108,11 @@ class MyProfilePageState extends State<MyProfilePage> {
                     width: 350,
                     child: InkWell(
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          await Future.delayed(Duration(milliseconds: 900));
+                          await Navigator.pushNamed(
+                              context, MyRoute.passwordRoute);
+                        },
                         child: Text(
                           "Change Password",
                           style: GoogleFonts.inter(
