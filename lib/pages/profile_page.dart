@@ -45,14 +45,14 @@ class MyProfilePageState extends State<MyProfilePage> {
               height: 20,
             ),
             Text(
-              "Name${MySignUpPageState.name}",
+              MySignUpPageState.name,
               style: GoogleFonts.inter(
                 fontSize: 22,
                 fontWeight: FontWeight.w600,
               ),
             ),
             Text(
-              "Username${MySignUpPageState.username}",
+              MySignUpPageState.username,
               style: GoogleFonts.inter(fontSize: 15),
             ),
             SizedBox(
@@ -67,7 +67,7 @@ class MyProfilePageState extends State<MyProfilePage> {
                     controller: email,
                     readOnly: true,
                     decoration: InputDecoration(
-                      hintText: "Email${MySignUpPageState.email}",
+                      hintText: "Email",
                       labelText: "Email",
                     ),
                   ),
@@ -75,7 +75,7 @@ class MyProfilePageState extends State<MyProfilePage> {
                     controller: phone_number,
                     readOnly: true,
                     decoration: InputDecoration(
-                      hintText: "Phone Number${MySignUpPageState.phoneNumber}",
+                      hintText: "Phone Number",
                       labelText: "Phone Number",
                     ),
                   ),
