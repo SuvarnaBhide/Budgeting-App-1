@@ -31,8 +31,8 @@ class MyApp extends StatelessWidget {
         MyRoute.phoneLoginRoute: (context) => phoneLogin(),
         MyRoute.OTPRoute: (context) => MyOTPPage(),
         MyRoute.signUpRoute: (context) => MySignUpPage(),
-        MyRoute.profileRoute: (context) => RootApp(pageIndex: 3),
-        MyRoute.mainRoute: (context) => RootApp(pageIndex: null),
+        MyRoute.profileRoute: (context) => RootApp(),
+        MyRoute.mainRoute: (context) => RootApp(),
         MyRoute.passwordRoute: (context) => passwordPage(),
       },
     );

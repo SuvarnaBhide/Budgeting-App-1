@@ -5,6 +5,7 @@ import 'package:budget_x/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:budget_x/pages/root_app.dart';
 
 class passwordPage extends StatefulWidget {
   const passwordPage({Key? key}) : super(key: key);
@@ -69,6 +70,7 @@ class passwordPageState extends State<passwordPage> {
                     child: ElevatedButton(
                       onPressed: () async {
                         if (key.currentState!.validate()) {
+                          RootAppState.pageIndex = 3;
                           await Future.delayed(Duration(milliseconds: 900));
                           await Navigator.pushNamed(
                               context, MyRoute.profileRoute);
@@ -104,6 +106,7 @@ class passwordPageState extends State<passwordPage> {
                   child: InkWell(
                     child: ElevatedButton(
                       onPressed: () async {
+                        RootAppState.pageIndex = 3;
                         await Future.delayed(Duration(milliseconds: 900));
                         await Navigator.pushNamed(
                             context, MyRoute.profileRoute);
