@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers
 
 import 'package:budget_x/json/create_expense_json.dart';
 import 'package:budget_x/theme/color.dart';
