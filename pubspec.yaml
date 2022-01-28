@@ -41,6 +41,7 @@ dependencies:
   email_validator: ^2.0.1
   animated_bottom_navigation_bar: ^0.3.2
   table_calendar: ^3.0.3
+  fl_chart: ^0.41.0
  
 
 dev_dependencies:
