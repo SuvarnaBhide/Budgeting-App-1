@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.dark,
       darkTheme: ThemeData(brightness: Brightness.dark),
-      initialRoute: MyRoute.profileRoute,
+      initialRoute: MyRoute.startRoute,
       routes: {
         MyRoute.startRoute: (context) => MySplashScreen(),
         MyRoute.homeRoute: (context) => MySplashScreen(),

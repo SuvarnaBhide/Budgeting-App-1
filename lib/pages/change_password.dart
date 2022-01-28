@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, sized_box_for_whitespace, non_constant_identifier_names, prefer_typing_uninitialized_variables, camel_case_types, unused_local_variable
 
+import 'package:budget_x/pages/login_page.dart';
 import 'package:budget_x/pages/signUp_page.dart';
 import 'package:budget_x/utils/routes.dart';
 import 'package:flutter/material.dart';
@@ -75,6 +76,8 @@ class passwordPageState extends State<passwordPage> {
                           await Navigator.pushNamed(
                               context, MyRoute.profileRoute);
                           MySignUpPageState.password_value =
+                              confirm_Password.value.text;
+                          MyLoginPageState.password =
                               confirm_Password.value.text;
                         }
                       },
