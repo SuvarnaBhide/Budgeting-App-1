@@ -8,4 +8,6 @@ class MyRoute {
   static String phoneLoginRoute = "/phoneLogin";
   static String OTPRoute = "/OTPLogin";
   static String mainRoute = "/dashboard";
+  static String profileRoute = "/profile";
+  static String detailedStatsRoute = "/detailed_stats";
 }
