@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, non_constant_identifier_names, prefer_typing_uninitialized_variables, sized_box_for_whitespace
+// ignore_for_file: prefer_const_constructors, non_constant_identifier_names, prefer_typing_uninitialized_variables, sized_box_for_whitespace, use_key_in_widget_constructors
 
 import 'package:budget_x/pages/signUp_page.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +11,7 @@ class MyProfilePage extends StatefulWidget {
 }
 
 class MyProfilePageState extends State<MyProfilePage> {
-  static var dropDownValue = "Male";
+  static var dropDownValue = "None";
   TextEditingController email = TextEditingController()
     ..text = MySignUpPageState.email;
   TextEditingController phone_number = TextEditingController()
@@ -91,7 +91,7 @@ class MyProfilePageState extends State<MyProfilePage> {
                           dropDownValue = newValue!;
                         });
                       },
-                      items: <String>["Male", "Female", "Other"]
+                      items: <String>["None", "Male", "Female", "Other"]
                           .map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
@@ -107,7 +107,11 @@ class MyProfilePageState extends State<MyProfilePage> {
                     width: 350,
                     child: InkWell(
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          await Future.delayed(Duration(milliseconds: 900));
+                          await Navigator.pushNamed(
+                              context, MyRoute.passwordRoute);
+                        },
                         child: Text(
                           "Change Password",
                           style: GoogleFonts.inter(
@@ -162,7 +166,11 @@ class MyProfilePageState extends State<MyProfilePage> {
                   Center(
                     child: InkWell(
                       child: MaterialButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          await Future.delayed(Duration(milliseconds: 900));
+                          await Navigator.pushNamed(
+                              context, MyRoute.loginRoute);
+                        },
                         child: Text(
                           "Log Out",
                           style: GoogleFonts.inter(

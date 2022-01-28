@@ -13,7 +13,7 @@ class MyLoginPage extends StatefulWidget {
 
 class MyLoginPageState extends State<MyLoginPage> {
   var mykey = GlobalKey<FormState>();
-  var name = "BudgetX", password = "12345678", name_check, pass_check;
+  static var name = "BudgetX", password = "12345678", name_check, pass_check;
   @override
   Widget build(BuildContext context) {
     return SafeArea(

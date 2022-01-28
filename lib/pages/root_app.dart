@@ -9,20 +9,18 @@ import 'create_expense_page.dart';
 import 'stats_page.dart';
 
 void main() {
-  runApp(const MaterialApp(
-    home: RootApp(pageIndex: null),
+  runApp(MaterialApp(
+    home: RootApp(),
   ));
 }
 
 class RootApp extends StatefulWidget {
-  const RootApp({Key? key, required pageIndex}) : super(key: key);
-
   @override
-  _RootAppState createState() => _RootAppState();
+  RootAppState createState() => RootAppState();
 }
 
-class _RootAppState extends State<RootApp> {
-  int pageIndex = 0;
+class RootAppState extends State<RootApp> {
+  static int pageIndex = 0;
   List<Widget> pages = [
     const DashboardPage(),
     const StatsPage(),

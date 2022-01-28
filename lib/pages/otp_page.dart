@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import, prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, non_constant_identifier_names, avoid_returning_null_for_void
 
 import 'package:budget_x/pages/phone_login_page.dart';
+import 'package:budget_x/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -13,9 +14,7 @@ class MyOTPPage extends StatefulWidget {
 class MyOTPPageState extends State<MyOTPPage> {
   var mykey = GlobalKey<FormState>();
   String otp = "123456";
-  bool len = false;
   bool otp_check = false;
-  bool timercheck = true;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -77,9 +76,6 @@ class MyOTPPageState extends State<MyOTPPage> {
                           } else if (value != otp) {
                             return "Pls enter correct OTP";
                           }
-                          if (value.length == 6) {
-                            len = true;
-                          }
                         },
                         obscureText: true,
                         textAlign: TextAlign.center,
@@ -111,9 +107,15 @@ class MyOTPPageState extends State<MyOTPPage> {
                   width: 150,
                   child: InkWell(
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         if (mykey.currentState?.validate() == true &&
-                            otp_check == true) {}
+                            otp_check == true) {
+                          if (mykey.currentState?.validate() == true) {
+                            await Future.delayed(Duration(milliseconds: 900));
+                            await Navigator.pushNamed(
+                                context, MyRoute.mainRoute);
+                          }
+                        }
                       },
                       child: Text(
                         "Verify",
