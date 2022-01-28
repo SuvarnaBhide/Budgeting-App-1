@@ -6,6 +6,7 @@ import 'package:budget_x/pages/dashboard_page.dart';
 import 'package:budget_x/theme/color.dart';
 
 import 'create_expense_page.dart';
+import 'stats_page.dart';
 
 void main() {
   runApp(const MaterialApp(
@@ -24,9 +25,9 @@ class _RootAppState extends State<RootApp> {
   int pageIndex = 0;
   List<Widget> pages = [
     const DashboardPage(),
-    /*const StatsPage()*/ const Center(child: Text('STATS')),
+    const StatsPage(),
     const Center(child: Text('BUDGET')),
-    MyProfilePage(), //idhar profile page daal de
+    MyProfilePage(),
     const CreateExpense(),
   ];
 

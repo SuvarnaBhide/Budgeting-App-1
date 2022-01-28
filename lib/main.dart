@@ -7,6 +7,7 @@ import 'package:budget_x/pages/profile_page.dart';
 import 'package:budget_x/pages/root_app.dart';
 import 'package:budget_x/pages/signUp_page.dart';
 import 'package:budget_x/pages/splash_Screen.dart';
+import 'package:budget_x/pages/stats_page.dart';
 import 'package:budget_x/utils/routes.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.dark,
       darkTheme: ThemeData(brightness: Brightness.dark),
-      initialRoute: MyRoute.startRoute,
+      initialRoute: MyRoute.mainRoute,
       routes: {
         MyRoute.startRoute: (context) => MySplashScreen(),
         MyRoute.homeRoute: (context) => MySplashScreen(),
@@ -32,6 +33,9 @@ class MyApp extends StatelessWidget {
         MyRoute.signUpRoute: (context) => MySignUpPage(),
         MyRoute.profileRoute: (context) => MyProfilePage(),
         MyRoute.mainRoute: (context) => RootApp(pageIndex: null),
+        MyRoute.detailedStatsRoute: (context){
+          return DetailedStats(statsType: "", amount: "",);
+        }
       },
     );
   }
