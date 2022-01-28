@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, non_constant_identifier_names, avoid_returning_null_for_void
+// ignore_for_file: unused_import, prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, non_constant_identifier_names, avoid_returning_null_for_void, use_key_in_widget_constructors
 
 import 'package:budget_x/pages/phone_login_page.dart';
 import 'package:budget_x/utils/routes.dart';

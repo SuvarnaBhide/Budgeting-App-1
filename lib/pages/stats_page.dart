@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unused_local_variable
 
 import 'package:budget_x/json/stats_json.dart';
 import 'package:budget_x/theme/color.dart';
