@@ -1,4 +1,5 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unused_import, sized_box_for_whitespace
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unused_import, sized_box_for_whitespace, non_constant_identifier_names
+import 'package:budget_x/json/dashboard_json.dart';
 import 'package:budget_x/theme/color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,9 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+
+  int newindex = -1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,8 +80,9 @@ class _DashboardPageState extends State<DashboardPage> {
                   const Padding(
                     padding: EdgeInsets.only(bottom: 10),
                     child: Icon(
-                      Icons.space_dashboard,
-                      size: 90,
+                      CupertinoIcons.money_dollar_circle,
+                      color: Colors.orangeAccent,
+                      size: 70,
                     ),
                   ),
                 ],
@@ -102,15 +107,16 @@ class _DashboardPageState extends State<DashboardPage> {
                         spreadRadius: 10,
                         blurRadius: 3)
                   ]),
-              child: Padding(
+              child: index == 0 ? Padding(
                 padding: const EdgeInsets.only(top: 20, bottom: 20, left: 15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Icon(
-                      Icons.wallet_travel_outlined,
-                      size: 60,
+                      CupertinoIcons.money_dollar_circle,
+                      color: Colors.green,
+                      size: 70,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -118,16 +124,26 @@ class _DashboardPageState extends State<DashboardPage> {
                         Text('Cash',
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
-                                color: Colors.red.withOpacity(0.5),
+                                color: Colors.white.withOpacity(0.5),
                                 fontSize: 13)),
                         const SizedBox(height: 2),
                         const Text('1600 INR',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.red,
+                                color: Colors.white,
                                 fontSize: 20)),
                       ],
                     )
+                  ],
+                ),
+              ) : Padding(
+                padding: const EdgeInsets.only(left: 10, right: 10, top: 20, bottom: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InkWell(onTap: (){} ,child: Text('Adjust Balance', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800))),
+                    Divider(color: Colors.grey),
+                    InkWell(onTap: (){}, child: Text('Add Account', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800))),
                   ],
                 ),
               ),
@@ -138,7 +154,7 @@ class _DashboardPageState extends State<DashboardPage> {
         const SizedBox(height: 20),
 
         Column(
-            children: List.generate(2, (index) {
+            children: List.generate(2, (Index) {
           return Padding(
             padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
             child: Container(
@@ -164,18 +180,18 @@ class _DashboardPageState extends State<DashboardPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text("Latest Transactions",
+                            Text( Index == 0 ? "Latest Transactions" : "Top expenses",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
                                     fontSize: 22)),
-                            const Icon(CupertinoIcons.location)
+                            const Icon(Icons.arrow_drop_down)
                           ],
                         ),
                         Divider(color: Colors.white.withOpacity(0.5)),
                         const SizedBox(height: 10),
                         Column(
-                          children: List.generate(3, (index) {
+                          children: List.generate(items.length, (index) {
                             return Column(
                               children: [
                                 Row(
@@ -189,11 +205,10 @@ class _DashboardPageState extends State<DashboardPage> {
                                               width: 50,
                                               height: 50,
                                               decoration: BoxDecoration(
-                                                  color: Colors.grey
-                                                      .withOpacity(0.1),
+                                                  color: items[index]['color'],
                                                   shape: BoxShape.circle),
-                                              child: const Center(
-                                                  child: Icon(Icons.home))),
+                                              child: Center(
+                                                  child: items[index]['icon'])),
                                           const SizedBox(width: 15),
                                           Container(
                                               width: (size.width - 90) * 0.5,
@@ -203,28 +218,28 @@ class _DashboardPageState extends State<DashboardPage> {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  const Text("lol",
+                                                  Text(items[index]['title'],
                                                       style: TextStyle(
                                                           fontSize: 18,
                                                           color: Colors.white,
                                                           fontWeight:
                                                               FontWeight.bold)),
                                                   const SizedBox(height: 5),
-                                                  const Text(
-                                                    '6/9/69',
+                                                  Index == 0? Text(
+                                                    items[index]['date'],
                                                     style: TextStyle(
                                                         fontSize: 12,
                                                         color: Colors.white,
                                                         fontWeight:
                                                             FontWeight.w200),
-                                                  )
+                                                  ) : Container()
                                                 ],
                                               )),
-                                          const Text('-420 INR',
+                                          Text(Index == 0 ? '-' + items[index]['amount'] : items[index]['amount'],
                                               style: TextStyle(
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.w600,
-                                                  color: Colors.red)),
+                                                  color: Index == 0 ? Colors.red : Colors.grey)),
                                         ],
                                       ),
                                     ),
