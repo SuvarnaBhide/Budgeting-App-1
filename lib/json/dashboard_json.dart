@@ -20,7 +20,7 @@ const List items = [
   {
     "icon": Icon(Icons.card_giftcard_sharp, size: 30),
     "color": Colors.red,
-    "title": "Food & Drinks",
+    "title": "Gifts",
     "date": "22 Jan 2022",
     "amount": "\$500",
   }

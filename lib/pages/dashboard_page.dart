@@ -1,9 +1,14 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unused_import, sized_box_for_whitespace, non_constant_identifier_names
+import 'package:budget_x/database/expenses_database.dart';
+import 'package:budget_x/json/create_expense_json.dart';
 import 'package:budget_x/json/dashboard_json.dart';
+import 'package:budget_x/models/expense_model.dart';
+import 'package:budget_x/pages/root_app.dart';
 import 'package:budget_x/theme/color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({Key? key}) : super(key: key);
@@ -14,10 +19,41 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
 
-  int newindex = -1;
+  late List<Expense> expenses;
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    refreshExpenses();
+  }
+
+  Future refreshExpenses() async {
+    setState(()=> isLoading = true);
+    expenses = await ExpensesDatabase.instance.readAllExpenses();
+    refreshBalance(expenses);
+    setState(()=> isLoading = false);
+  }
+
+  void refreshBalance(List<Expense> expenses){
+    
+    num totalBalance = 0;
+    for(Expense expense in expenses){
+      expense.isExpense ? totalBalance -= expense.amount : totalBalance += expense.amount;
+    }
+    Expense.balance = totalBalance;
+    print('Total Balance: ${Expense.balance}');
+  }
+
+  @override
+  void dispose() {
+    ExpensesDatabase.instance.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: AppBar(
@@ -25,7 +61,6 @@ class _DashboardPageState extends State<DashboardPage> {
           "Dashboard",
           style: GoogleFonts.inter(fontWeight: FontWeight.bold),
         ),
-        actions: [Icon(Icons.notifications)],
       ),
       body: getBody(),
       drawer: Drawer(),
@@ -33,6 +68,10 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   Widget getBody() {
+
+    int index1=0, index2=0;
+    int index = expenses.length ;
+    var time;
     var size = MediaQuery.of(context).size;
 
     return SingleChildScrollView(
@@ -70,7 +109,7 @@ class _DashboardPageState extends State<DashboardPage> {
                               fontSize: 18,
                               fontWeight: FontWeight.w800)),
                       const SizedBox(height: 5),
-                      const Text('6900 INR',
+                      Text(Expense.balance.toString(),
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 30,
@@ -191,8 +230,23 @@ class _DashboardPageState extends State<DashboardPage> {
                         Divider(color: Colors.white.withOpacity(0.5)),
                         const SizedBox(height: 10),
                         Column(
-                          children: List.generate(items.length, (index) {
-                            return Column(
+                          children: List.generate(3, (oldIndex){
+                            setState(() {
+                              if(index < expenses.length-2){index = expenses.length;}
+                              index--;
+                              for(int i=0; i<categoryTypes.length-1; i++){
+                                if(categoryTypes[i]['category'] == expenses[index].category){
+                                  index1 = i;
+                                }
+                              }
+                              for(int j=0; j<categoryTypes.length-1; j++){
+                                if(categoryTypes1[j]['category'] == expenses[index].category){
+                                  index2 = j;
+                                }
+                              }
+                              time = DateFormat.yMMMd().format(expenses[index].time);
+                            });
+                           return Column(
                               children: [
                                 Row(
                                   children: [
@@ -205,10 +259,10 @@ class _DashboardPageState extends State<DashboardPage> {
                                               width: 50,
                                               height: 50,
                                               decoration: BoxDecoration(
-                                                  color: items[index]['color'],
+                                                  color: expenses[index].isExpense ? categoryTypes[index1]['color'] : categoryTypes1[index2]['color'],
                                                   shape: BoxShape.circle),
                                               child: Center(
-                                                  child: items[index]['icon'])),
+                                                  child: expenses[index].isExpense ? categoryTypes[index1]['icon'] : categoryTypes1[index2]['icon'],)),
                                           const SizedBox(width: 15),
                                           Container(
                                               width: (size.width - 90) * 0.5,
@@ -218,7 +272,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(items[index]['title'],
+                                                  Text(expenses[index].isExpense ? categoryTypes[index1]['category'] : categoryTypes1[index2]['category'],
                                                       style: TextStyle(
                                                           fontSize: 18,
                                                           color: Colors.white,
@@ -226,7 +280,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                                               FontWeight.bold)),
                                                   const SizedBox(height: 5),
                                                   Index == 0? Text(
-                                                    items[index]['date'],
+                                                    time,
                                                     style: TextStyle(
                                                         fontSize: 12,
                                                         color: Colors.white,
@@ -235,11 +289,20 @@ class _DashboardPageState extends State<DashboardPage> {
                                                   ) : Container()
                                                 ],
                                               )),
-                                          Text(Index == 0 ? '-' + items[index]['amount'] : items[index]['amount'],
+                                          Text(
+                                            Index == 0 ? 
+                                              expenses[index].isExpense ?
+                                                '-' + expenses[index].amount.toString() 
+                                                : '+' +expenses[index].amount.toString() 
+                                              : expenses[index].amount.toString(),
                                               style: TextStyle(
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.w600,
-                                                  color: Index == 0 ? Colors.red : Colors.grey)),
+                                                  color: Index == 0 ? 
+                                                          expenses[index].isExpense ?
+                                                              Colors.red 
+                                                             : Colors.green 
+                                                          : Colors.grey)),
                                         ],
                                       ),
                                     ),
@@ -249,8 +312,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                   padding: EdgeInsets.only(top: 8),
                                 )
                               ],
-                            );
-                          }),
+                            );})
                         ),
                       ],
                     ),

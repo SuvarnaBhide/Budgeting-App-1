@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
 
+import 'package:budget_x/pages/budget_page.dart';
 import 'package:budget_x/pages/change_password.dart';
+import 'package:budget_x/pages/expenses_page.dart';
 import 'package:budget_x/pages/login_page.dart';
 import 'package:budget_x/pages/otp_page.dart';
 import 'package:budget_x/pages/phone_login_page.dart';
@@ -33,11 +35,13 @@ class MyApp extends StatelessWidget {
         MyRoute.signUpRoute: (context) => MySignUpPage(),
 
         MyRoute.profileRoute: (context) => RootApp(),
+        MyRoute.expenseRoute: (context) => ExpensePage(),    
         MyRoute.mainRoute: (context) => RootApp(),
         MyRoute.passwordRoute: (context) => passwordPage(),
         MyRoute.detailedStatsRoute: (context){
           return DetailedStats(statsType: "", amount: "",);
-        }
+        },
+        MyRoute.budgetRoute: (context) => BudgetPage(),
 
       },
     );

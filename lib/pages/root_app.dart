@@ -1,6 +1,9 @@
-// ignore_for_file: use_key_in_widget_constructors
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors
 
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:budget_x/database/expenses_database.dart';
+import 'package:budget_x/models/expense_model.dart';
+import 'package:budget_x/pages/budget_page.dart';
 import 'package:budget_x/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +11,7 @@ import 'package:budget_x/pages/dashboard_page.dart';
 import 'package:budget_x/theme/color.dart';
 
 import 'create_expense_page.dart';
+import 'expenses_page.dart';
 import 'stats_page.dart';
 
 void main() {
@@ -22,11 +26,15 @@ class RootApp extends StatefulWidget {
 }
 
 class RootAppState extends State<RootApp> {
+
   static int pageIndex = 0;
+  late List<Expense> expenses;
+  bool isLoading = false;
+
   List<Widget> pages = [
     const DashboardPage(),
     const StatsPage(),
-    const Center(child: Text('BUDGET')),
+    /*const Center(child: Text('BUDGET')),*/ BudgetPage(),
     MyProfilePage(),
     const CreateExpense(),
   ];
@@ -34,11 +42,30 @@ class RootAppState extends State<RootApp> {
   @override
   void initState() {
     super.initState();
+    refresh();
   }
 
   @override
   void dispose() {
+    ExpensesDatabase.instance.close();
     super.dispose();
+  }
+
+  Future refresh() async {
+    setState(()=> isLoading = true);
+    expenses = await ExpensesDatabase.instance.readAllExpenses();
+    refreshBalance(expenses);
+    setState(()=> isLoading = false);
+  }
+
+  void refreshBalance(List<Expense> expenses){
+    
+    num totalBalance = 0;
+    for(Expense expense in expenses){
+      expense.isExpense ? totalBalance -= expense.amount : totalBalance += expense.amount;
+    }
+    Expense.balance = totalBalance;
+    print('Total Balance: ${Expense.balance}');
   }
 
   @override
