@@ -1,9 +1,13 @@
-// ignore_for_file: prefer_const_constructors, deprecated_member_use, use_key_in_widget_constructors, sized_box_for_whitespace, dead_code, prefer_typing_uninitialized_variables, non_constant_identifier_names
+// ignore_for_file: prefer_const_constructors, deprecated_member_use, use_key_in_widget_constructors, sized_box_for_whitespace, dead_code, prefer_typing_uninitialized_variables, non_constant_identifier_names, prefer_final_fields
 
+import 'package:budget_x/database/accounts.dart';
+import 'package:budget_x/model/note.dart';
 import 'package:budget_x/pages/signUp_page.dart';
 import 'package:budget_x/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:velocity_x/velocity_x.dart';
 
 class MyLoginPage extends StatefulWidget {
@@ -12,8 +16,32 @@ class MyLoginPage extends StatefulWidget {
 }
 
 class MyLoginPageState extends State<MyLoginPage> {
+  Future<SharedPreferences> _pref = SharedPreferences.getInstance();
   var mykey = GlobalKey<FormState>();
-  static var name = "BudgetX", password = "12345678", name_check, pass_check;
+  static var name = TextEditingController(),
+      password = TextEditingController(),
+      name_check,
+      name_check2,
+      pass_check2,
+      pass_check;
+  var accounts;
+
+  @override
+  void initState() {
+    super.initState();
+    accounts = Accounts();
+  }
+
+  Future setSP(Note note) async {
+    final SharedPreferences sp = await _pref;
+
+    sp.setString("username", note.username!);
+    sp.setString("name", note.name!);
+    sp.setString("email", note.email!);
+    sp.setString("password", note.password!);
+    sp.setString("number", note.number!);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -51,15 +79,17 @@ class MyLoginPageState extends State<MyLoginPage> {
                         child: Container(
                           height: 40,
                           child: TextFormField(
+                            controller: name,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return "Pls enter your username";
                               }
                               if (value == MySignUpPageState.username ||
                                   value == MySignUpPageState.email) {
-                                name_check = true;
+                                name_check2 = true;
                               } else {
                                 return "Pls enter correct username";
+                                name_check = name.text;
                               }
                             },
                             style: TextStyle(color: Colors.black),
@@ -87,14 +117,16 @@ class MyLoginPageState extends State<MyLoginPage> {
                       Container(
                         height: 60,
                         child: TextFormField(
+                          controller: password,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Pls enter your password";
                             }
                             if (value == MySignUpPageState.password_value) {
-                              pass_check = true;
+                              pass_check2 = true;
                             } else {
                               return "Pls enter correct password";
+                              pass_check = password.text;
                             }
                           },
                           obscureText: true,
@@ -125,7 +157,23 @@ class MyLoginPageState extends State<MyLoginPage> {
                           child: InkWell(
                             child: ElevatedButton(
                               onPressed: () async {
-                                if (mykey.currentState?.validate() == true) {
+                                if (mykey.currentState!.validate() == true &&
+                                    name_check2 == true &&
+                                    pass_check2 == true) {
+                                  // await accounts
+                                  //     .getLoginUser(name_check, pass_check)
+                                  //     .then((userData) async {
+                                  //   if (userData != null) {
+                                  //     setSP(userData).whenComplete(() async {
+                                  //       await Future.delayed(
+                                  //           Duration(milliseconds: 900));
+                                  //       await Navigator.pushNamed(
+                                  //           context, MyRoute.mainRoute);
+                                  //     });
+                                  //   }
+                                  // }).catchError((error) {
+                                  //   print(error);
+                                  // });
                                   await Future.delayed(
                                       Duration(milliseconds: 900));
                                   await Navigator.pushNamed(

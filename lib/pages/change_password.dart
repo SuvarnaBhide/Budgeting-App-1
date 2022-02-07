@@ -72,13 +72,11 @@ class passwordPageState extends State<passwordPage> {
                       onPressed: () async {
                         if (key.currentState!.validate()) {
                           RootAppState.pageIndex = 3;
+                          MySignUpPageState.password_value =
+                              confirm_Password.value.text;
                           await Future.delayed(Duration(milliseconds: 900));
                           await Navigator.pushNamed(
                               context, MyRoute.profileRoute);
-                          MySignUpPageState.password_value =
-                              confirm_Password.value.text;
-                          MyLoginPageState.password =
-                              confirm_Password.value.text;
                         }
                       },
                       child: Text(
