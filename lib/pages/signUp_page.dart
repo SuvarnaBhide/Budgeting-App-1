@@ -1,5 +1,7 @@
-// ignore_for_file: prefer_const_constructors, deprecated_member_use, use_key_in_widget_constructors, sized_box_for_whitespace, dead_code, prefer_typing_uninitialized_variables, non_constant_identifier_names, file_names
+// ignore_for_file: prefer_const_constructors, deprecated_member_use, use_key_in_widget_constructors, sized_box_for_whitespace, dead_code, prefer_typing_uninitialized_variables, non_constant_identifier_names, file_names, avoid_print, unused_local_variable
 
+import 'package:budget_x/database/accounts.dart';
+import 'package:budget_x/model/note.dart';
 import 'package:budget_x/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,6 +23,14 @@ class MySignUpPageState extends State<MySignUpPage> {
   var confirmPassword = TextEditingController();
   static var password_value = "";
   static var isValid;
+  var accounts;
+
+  @override
+  void initState() {
+    super.initState();
+    accounts = Accounts();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -264,6 +274,24 @@ class MySignUpPageState extends State<MySignUpPage> {
                               child: ElevatedButton(
                                 onPressed: () async {
                                   if (mykey.currentState?.validate() == true) {
+                                    // mykey.currentState?.save();
+                                    // Note note = Note(
+                                    //     name: name,
+                                    //     username: username,
+                                    //     email: email,
+                                    //     number: phoneNumber,
+                                    //     password: password.text);
+                                    // await accounts
+                                    //     .saveData(note)
+                                    //     .then((userData) async {
+                                    //   if (userData != null) {
+                                    //     print("Data Saved");
+                                    //     await Future.delayed(
+                                    //         Duration(milliseconds: 900));
+                                    //     await Navigator.pushNamed(
+                                    //         context, MyRoute.loginRoute);
+                                    //   }
+                                    // });
                                     await Future.delayed(
                                         Duration(milliseconds: 900));
                                     await Navigator.pushNamed(

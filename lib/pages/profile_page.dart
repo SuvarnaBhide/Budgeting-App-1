@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, non_constant_identifier_names, prefer_typing_uninitialized_variables, sized_box_for_whitespace, use_key_in_widget_constructors
 
+import 'package:budget_x/pages/drawer.dart';
+import 'package:budget_x/pages/root_app.dart';
 import 'package:budget_x/pages/signUp_page.dart';
 import 'package:budget_x/utils/routes.dart';
 import 'package:flutter/material.dart';
@@ -168,6 +170,7 @@ class MyProfilePageState extends State<MyProfilePage> {
                     child: InkWell(
                       child: MaterialButton(
                         onPressed: () async {
+                          RootAppState.pageIndex = 0;
                           await Future.delayed(Duration(milliseconds: 900));
                           await Navigator.pushNamed(
                               context, MyRoute.loginRoute);
@@ -207,7 +210,9 @@ class MyProfilePageState extends State<MyProfilePage> {
           ],
         ),
       ),
-      drawer: Drawer(),
+      drawer: Drawer(
+        child: MyDrawer(),
+      ),
     );
   }
 }

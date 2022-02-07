@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unused_import, sized_box_for_whitespace
+import 'package:budget_x/pages/drawer.dart';
 import 'package:budget_x/theme/color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,9 @@ class _DashboardPageState extends State<DashboardPage> {
         actions: [Icon(Icons.notifications)],
       ),
       body: getBody(),
-      drawer: Drawer(),
+      drawer: Drawer(
+        child: MyDrawer(),
+      ),
     );
   }
 
