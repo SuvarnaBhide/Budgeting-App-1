@@ -9,9 +9,11 @@ class MyRoute {
   static String OTPRoute = "/OTPLogin";
   static String mainRoute = "/dashboard";
   static String profileRoute = "/profile";
+  static String expenseRoute = "/expense";
 
   static String passwordRoute = "/password";
 
   static String detailedStatsRoute = "/detailed_stats";
+  static String budgetRoute = "/budget";
 
 }
