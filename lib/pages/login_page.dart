@@ -23,7 +23,9 @@ class MyLoginPageState extends State<MyLoginPage> {
       name_check,
       name_check2,
       pass_check2,
-      pass_check;
+      pass_check,
+      admin_id = "admin",
+      admin_pass = "12345678";
   var accounts;
 
   @override
@@ -85,7 +87,8 @@ class MyLoginPageState extends State<MyLoginPage> {
                                 return "Pls enter your username";
                               }
                               if (value == MySignUpPageState.username ||
-                                  value == MySignUpPageState.email) {
+                                  value == MySignUpPageState.email ||
+                                  value == admin_id) {
                                 name_check2 = true;
                               } else {
                                 return "Pls enter correct username";
@@ -122,7 +125,8 @@ class MyLoginPageState extends State<MyLoginPage> {
                             if (value!.isEmpty) {
                               return "Pls enter your password";
                             }
-                            if (value == MySignUpPageState.password_value) {
+                            if (value == MySignUpPageState.password_value ||
+                                value == admin_pass) {
                               pass_check2 = true;
                             } else {
                               return "Pls enter correct password";
