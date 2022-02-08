@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.dark,
       darkTheme: ThemeData(brightness: Brightness.dark),
-      initialRoute: MyRoute.mainRoute,
+      initialRoute: MyRoute.startRoute,
       routes: {
         MyRoute.startRoute: (context) => MySplashScreen(),
         MyRoute.homeRoute: (context) => MySplashScreen(),
@@ -33,15 +33,16 @@ class MyApp extends StatelessWidget {
         MyRoute.phoneLoginRoute: (context) => phoneLogin(),
         MyRoute.OTPRoute: (context) => MyOTPPage(),
         MyRoute.signUpRoute: (context) => MySignUpPage(),
-
         MyRoute.profileRoute: (context) => RootApp(),
         MyRoute.expenseRoute: (context) => ExpensePage(),    
         MyRoute.mainRoute: (context) => RootApp(),
         MyRoute.passwordRoute: (context) => passwordPage(),
+
         MyRoute.detailedStatsRoute: (context){
           return DetailedStats(statsType: "", amount: "",);
         },
         MyRoute.budgetRoute: (context) => BudgetPage(),
+
 
       },
     );

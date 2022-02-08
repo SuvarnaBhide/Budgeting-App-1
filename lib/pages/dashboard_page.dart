@@ -1,9 +1,11 @@
+
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unused_import, sized_box_for_whitespace, non_constant_identifier_names
 import 'package:budget_x/database/expenses_database.dart';
 import 'package:budget_x/json/create_expense_json.dart';
 import 'package:budget_x/json/dashboard_json.dart';
 import 'package:budget_x/models/expense_model.dart';
 import 'package:budget_x/pages/root_app.dart';
+import 'package:budget_x/pages/drawer.dart';
 import 'package:budget_x/theme/color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +65,9 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
       ),
       body: getBody(),
-      drawer: Drawer(),
+      drawer: Drawer(
+        child: MyDrawer(),
+      ),
     );
   }
 
