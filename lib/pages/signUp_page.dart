@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, deprecated_member_use, use_key_in_widget_constructors, sized_box_for_whitespace, dead_code, prefer_typing_uninitialized_variables, non_constant_identifier_names, file_names, avoid_print, unused_local_variable
 
 import 'package:budget_x/database/accounts.dart';
-import 'package:budget_x/model/note.dart';
 import 'package:budget_x/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

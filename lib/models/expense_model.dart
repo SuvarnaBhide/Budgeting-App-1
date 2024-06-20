@@ -20,6 +20,8 @@ class Expense {
   final String note;
   final bool isExpense;
   static num balance = 0;
+  static num totalExpense = 0;
+  static num totalIncome = 0;
 
   Expense({this.id, required this.amount,required this.category, required this.time, this.note = '', required this.isExpense});
 

@@ -5,9 +5,11 @@ import 'package:budget_x/models/category_model.dart';
 import 'package:budget_x/models/expense_model.dart';
 import 'package:budget_x/theme/color.dart';
 import 'package:budget_x/utils/routes.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide MonthPicker;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:velocity_x/velocity_x.dart';
+import 'package:flutter_date_pickers/flutter_date_pickers.dart';
 
 class ExpensePage extends StatefulWidget {
   const ExpensePage({ Key? key }) : super(key: key);
@@ -84,8 +86,14 @@ class _ExpensePageState extends State<ExpensePage> {
   ''');
   }
 
+  DateTime result = DateTime.now();
+  List<int> arr = [];
+
+  //iterate through all expenses, see which fit month, only those indices to be displayed
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: AppBar(
@@ -93,15 +101,65 @@ class _ExpensePageState extends State<ExpensePage> {
           "Expenses",
           style: GoogleFonts.inter(fontWeight: FontWeight.bold),
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              child: InkWell(
+                child: ElevatedButton(
+                  onPressed: () async {
+                    final sometime = await Navigator.push(context, MaterialPageRoute(builder: (context) => PopUpDialog()));
+                    ScaffoldMessenger.of(context)..removeCurrentSnackBar()..showSnackBar(SnackBar(content: Text(DateFormat.yMMM().format(sometime))));
+                    setState(() {
+                      arr.removeRange(0, arr.length);
+                      result = sometime;
+                      var newdate = DateTime(result.year, result.month+1, result.day);
+                      print('arr length: ${arr.length}');
+                      int j = 0;
+                      bool flag = false;
+                      for(int i=0; i<expenses.length; i++){
+                        print('$i');
+                        print('result: $result , particular expense: ${expenses[i].time}');
+                        int k = 0;
+                        if(expenses[i].time.compareTo(result) >= 0 && expenses[i].time.compareTo(newdate) < 0){
+                          arr.add(i);
+                          flag = true;
+                          print('Value: ${arr[k]}, arrlength now: ${arr.length}');
+                          k++;
+                        }
+                        j++;
+                      }
+                      if(j==expenses.length && arr.isNotEmpty && flag == false){
+                        print('haaa');
+                        arr.removeRange(0, arr.length);
+                        print('arr length: ${arr.length}');
+                      }
+                    });
+                  },
+                  child: Text(DateFormat.yMMM().format(result),style: GoogleFonts.inter(fontWeight: FontWeight.bold,fontSize: 15, color: black)),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                      Vx.hexToColor("#FF6600"),
+                    ),
+                    shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(7),
+                        ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
       ),
       body: Center(child: 
         isLoading ?
           CircularProgressIndicator()
-          : expenses.isEmpty ? 
+          : expenses.isEmpty || arr.isEmpty? 
             Text('No transactions', style: TextStyle(color: Colors.white))
             : getBody(),
       ),
-      drawer: Drawer(),
     );
   }
 
@@ -111,9 +169,10 @@ class _ExpensePageState extends State<ExpensePage> {
     var time;
     return SingleChildScrollView(
       child: Column(
-        children: List.generate(expenses.length, (index){
+        children: List.generate(arr.length, (index){
           setState(() {
-            time = DateFormat.yMMMd().format(expenses[index].time);
+            time = DateFormat.yMMMd().format(expenses[arr[index]].time);
+            print('is it an expense: ${expenses[arr[index]].isExpense}');
           });
           return Padding(
             padding: const EdgeInsets.only(bottom: 20.0),
@@ -134,14 +193,14 @@ class _ExpensePageState extends State<ExpensePage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(expenses[index].category, style: TextStyle(fontWeight: FontWeight.w800, fontSize: 18, color: Color(0xFFC2C2C2))),
+                          Text(expenses[arr[index]].category, style: TextStyle(fontWeight: FontWeight.w800, fontSize: 18, color: Color(0xFFC2C2C2))),
                           Text(time, style: TextStyle(fontWeight: FontWeight.w800, fontSize: 15, color: Color(0xFFC2C2C2))),
                         ],
                       ),
                       SizedBox(height: 5),
-                      Text( (expenses[index].isExpense ? '-' : '+') + expenses[index].amount.toString(), style: TextStyle(color: expenses[index].isExpense? Colors.red : Colors.green, fontSize: 30, fontWeight: FontWeight.bold)),
+                      Text( (expenses[arr[index]].isExpense ? '-' : '+') + expenses[arr[index]].amount.toString(), style: TextStyle(color: expenses[index].isExpense? Colors.red : Colors.green, fontSize: 30, fontWeight: FontWeight.bold)),
                       SizedBox(height: 5),
-                      expenses[index].note == '' ? Container() : Text(expenses[index].note, style: TextStyle(color: white, fontSize: 20,)),
+                      expenses[arr[index]].note == '' ? Container() : Text(expenses[arr[index]].note, style: TextStyle(color: white, fontSize: 20,)),
                     ],
                   )
                 )
@@ -150,6 +209,57 @@ class _ExpensePageState extends State<ExpensePage> {
           );
         })
       )
+    );
+  }
+}
+
+class PopUpDialog extends StatefulWidget {
+  const PopUpDialog({ Key? key }) : super(key: key);
+
+  @override
+  State<PopUpDialog> createState() => _PopUpDialogState();
+}
+
+class _PopUpDialogState extends State<PopUpDialog> {
+
+  DateTime selectedMonth = DateTime.now();
+
+  @override
+  Widget build(BuildContext context) {
+
+    return AlertDialog(
+      title: Text('Select Month'),
+      content: Column(
+        children: [
+          MonthPicker.single(
+              firstDate: DateTime(1990),
+              lastDate: DateTime(2050),
+              onChanged: (mySelection){
+                setState(() {
+                  selectedMonth = mySelection;
+                  print('selected month: $selectedMonth');
+                  
+                });     
+              },
+              selectedDate: selectedMonth,
+              datePickerStyles: DatePickerStyles(
+                selectedSingleDateDecoration: BoxDecoration(
+                  color: orange,
+                  borderRadius: BorderRadius.circular(15)
+                ) 
+              )
+          ),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: (){
+                Navigator.pop(context, selectedMonth);
+              }, 
+              child: Text("Save")
+            ),
+          )
+        ],
+      ),
     );
   }
 }

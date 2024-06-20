@@ -2,7 +2,6 @@
 
 import 'package:budget_x/database/expenses_database.dart';
 import 'package:budget_x/json/create_expense_json.dart';
-import 'package:budget_x/models/category_model.dart';
 import 'package:budget_x/models/expense_model.dart';
 import 'package:budget_x/pages/root_app.dart';
 import 'package:budget_x/theme/color.dart';
@@ -55,7 +54,7 @@ class _CreateExpenseState extends State<CreateExpense> {
 
           Container(
             //decoration: BoxDecoration(color: Colors.black, boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.01), spreadRadius: 10, blurRadius: 3)]),
-            padding: EdgeInsets.only(top: 60, bottom: 25, right: 20, left: 20),
+            padding: EdgeInsets.only(bottom: 25, right: 20, left: 20),
           ),
 
           Container(
@@ -146,7 +145,7 @@ class _CreateExpenseState extends State<CreateExpense> {
                 Column(
                   children: List.generate(attributes.length, (index){
                     return Padding(
-                      padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
+                      padding: const EdgeInsets.only(left: 15, right: 15, bottom: 5),
                       child: Container(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

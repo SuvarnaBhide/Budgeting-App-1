@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:budget_x/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -27,8 +28,9 @@ class _MyDrawerState extends State<MyDrawer> {
                 style: GoogleFonts.inter(fontSize: 20),
               ),
               leading: Icon(Icons.list),
-              onTap: () {
-                Navigator.of(context).pop();
+              onTap: () async {
+                await Future.delayed(Duration(milliseconds: 900));
+                await Navigator.pushNamed(context, MyRoute.expenseRoute);
               },
             ),
             ListTile(

@@ -68,7 +68,7 @@ class _DashboardPageState extends State<DashboardPage> {
           )
         ],
       ),
-      body: getBody(),
+      body: isLoading ? Center(child: CircularProgressIndicator()) : getBody(),
       drawer: Drawer(
         child: MyDrawer(),
       ),

@@ -1,9 +1,10 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable
 
 import 'package:budget_x/database/expenses_database.dart';
 import 'package:budget_x/json/create_expense_json.dart';
 import 'package:budget_x/models/category_model.dart';
 import 'package:budget_x/models/expense_model.dart';
+import 'package:budget_x/pages/drawer.dart';
 import 'package:budget_x/theme/color.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -48,7 +49,7 @@ class _BudgetPageState extends State<BudgetPage> {
       setCategoryWiseTotalAmount(expense.category, expense.amount,expense.isExpense);
     }
     Expense.balance = totalBalance;
-    print('Total Balance: ${Expense.balance}');
+
   }
 
   void resetCategoryWiseExpenses(){
@@ -91,7 +92,7 @@ class _BudgetPageState extends State<BudgetPage> {
         ],
       ),
       body: getBody(),
-      drawer: Drawer(),
+      drawer: Drawer(child: MyDrawer()),
     );
   }
 
